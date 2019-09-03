@@ -198,10 +198,10 @@ begin
           begin
             Strategy.Percentage := StrToIntDef(JsonParameters.GetValue<TJSONValue>('percentage').Value, 0);
           end
-          else
+          else if JsonParameters.Count = 1 then
           begin
             CustomPair := JsonParameters.Get(0);
-            Strategy.Ids.CommaText := CustomPair.Value;
+            Strategy.Ids.CommaText := TJsonValue(CustomPair.JsonValue).Value;
           end;
         end;
         Settings.Strategies.Add(Strategy);
