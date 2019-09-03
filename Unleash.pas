@@ -154,6 +154,7 @@ var
   JsonParameters: TJSONObject;
   Settings: TUnleashFeature;
   Strategy: TUnleashStrategy;
+  CustomPair: TJSONPair;
 begin
   if not Assigned(Json) then Exit;
 
@@ -182,16 +183,26 @@ begin
         if Assigned(JsonParameters) then
         begin
           if JsonParameters.FindValue('userIds') <> nil then
+          begin
             Strategy.Ids.CommaText := JsonParameters.GetValue<TJSONValue>('userIds').Value;
-
-          if JsonParameters.FindValue('hostNames') <> nil then
+          end
+          else if JsonParameters.FindValue('hostNames') <> nil then
+          begin
             Strategy.Ids.CommaText := JsonParameters.GetValue<TJSONValue>('hostNames').Value;
-
-          if JsonParameters.FindValue('IPs') <> nil then
+          end
+          else if JsonParameters.FindValue('IPs') <> nil then
+          begin
             Strategy.Ids.CommaText := JsonParameters.GetValue<TJSONValue>('IPs').Value;
-
-          if JsonParameters.FindValue('percentage') <> nil then
+          end
+          else if JsonParameters.FindValue('percentage') <> nil then
+          begin
             Strategy.Percentage := StrToIntDef(JsonParameters.GetValue<TJSONValue>('percentage').Value, 0);
+          end
+          else
+          begin
+            CustomPair := JsonParameters.Get(0);
+            Strategy.Ids.CommaText := CustomPair.Value;
+          end;
         end;
         Settings.Strategies.Add(Strategy);
       end;
@@ -293,6 +304,14 @@ begin
     else if Strategy.Name = c_StrategyRemoteAddress then
     begin
       if Strategy.IsInIds(Context.remoteAddress) then
+      begin
+        Result := True;
+        break;
+      end;
+    end
+    else
+    begin
+      if Strategy.IsInIds(Context.customParam) then
       begin
         Result := True;
         break;

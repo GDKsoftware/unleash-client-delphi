@@ -21,6 +21,7 @@ type
   TUnleashContext = record
     userId: string;
     remoteAddress: string;
+    customParam: string;
   end;
 
   IUnleash = interface
