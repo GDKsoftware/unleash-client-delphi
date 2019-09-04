@@ -200,7 +200,7 @@ begin
           end
           else if JsonParameters.Count = 1 then
           begin
-            CustomPair := JsonParameters.Get(0);
+            CustomPair := JsonParameters.Pairs[0];
             Strategy.Ids.CommaText := TJsonValue(CustomPair.JsonValue).Value;
           end;
         end;
