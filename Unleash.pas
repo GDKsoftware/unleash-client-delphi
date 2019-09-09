@@ -53,7 +53,7 @@ implementation
 
 uses
   System.SysUtils,
-  Rest.Types;
+  Rest.Types, System.Classes;
 
 const
   c_StrategyDefault = 'default';
@@ -178,6 +178,7 @@ begin
       begin
         Strategy := TUnleashStrategy.Create;
         Strategy.Name := JsonStrategy.GetValue<TJSONValue>('name').Value;
+        Strategy.Ids.Options := [soStrictDelimiter];
 
         JsonParameters := JsonStrategy.GetValue<TJSONObject>('parameters');
         if Assigned(JsonParameters) then
