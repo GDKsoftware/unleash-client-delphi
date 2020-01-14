@@ -180,7 +180,7 @@ begin
         Strategy.Name := JsonStrategy.GetValue<TJSONValue>('name').Value;
         Strategy.Ids.Options := [soStrictDelimiter];
 
-        JsonParameters := JsonStrategy.GetValue<TJSONObject>('parameters');
+        JsonParameters := JsonStrategy.GetValue<TJSONObject>('parameters', nil);
         if Assigned(JsonParameters) then
         begin
           if JsonParameters.FindValue('userIds') <> nil then
