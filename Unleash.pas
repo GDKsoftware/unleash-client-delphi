@@ -62,6 +62,11 @@ const
   c_StrategyGradualRolloutUserId = 'gradualRolloutUserId';
   c_StrategyRemoteAddress = 'remoteAddress';
 
+type
+  EUnleashException = class(Exception);
+  EUnleashNotAuthorized = class(EUnleashException);
+
+
 { TUnleash }
 
 constructor TUnleash.Create;
@@ -238,6 +243,9 @@ begin
     FRestConnection.Request.AddParameter('UNLEASH-APPNAME', FConfig.appName, TRESTRequestParameterKind.pkHTTPHEADER);
     FRestConnection.Request.AddParameter('UNLEASH-INSTANCEID', FConfig.instanceId, TRESTRequestParameterKind.pkHTTPHEADER);
 
+    if FConfig.apiKey <> '' then
+      FRestConnection.Request.AddParameter('Authorization', FConfig.apiKey, TRESTRequestParameterKind.pkHTTPHEADER, [poDoNotEncode]);
+
     FRestConnection.Request.Timeout := FConfig.timeout;
 
     try
@@ -245,6 +253,9 @@ begin
 
       if FRestConnection.Response.StatusCode = 304 then
         Exit;
+
+      if FRestConnection.Response.StatusCode = 401 then
+        raise EUnleashNotAuthorized.Create('Unauthorized - You must provide an API key in order to use Unleash');
 
       FErrorFetchingFeatures := False;
 

@@ -14,6 +14,7 @@ type
     initialFeaturesJson: string;
     noEtag: Boolean;
     timeout: Integer;
+    apiKey: string;
   public
     procedure Default;
   end;
