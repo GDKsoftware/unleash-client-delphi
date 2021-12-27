@@ -87,4 +87,5 @@ end;
 * There's no refresh rate of fetching features from the server, but you can implement your own timer or thread that may call `Unleash.Refresh;`
 * There's no default backup option that allows for offline features, but you can implement your own through `Unleash.GetLatestFeaturesJson` and `Config.initialFeaturesJson := LastKnownOrDefaultFeaturesJson;`
 * The default If-Modified behaviour causes an internal IDE Exception because of the 403 status-code when calling *Unleash.Refresh*, you can choose to disable If-Modified by setting `Config.noETag := False;`, although this is not recommended.
+* The nodejs client supports custom headers to send along with the requests (and thus the Authorization header), we offer a simple `apiKey` setting.
 * Metrics have not been implemented yet.
