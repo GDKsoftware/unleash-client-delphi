@@ -3,8 +3,7 @@ unit Unleash.Interfaces;
 interface
 
 uses
-  System.Generics.Collections,
-  System.SysUtils;
+  System.Generics.Collections;
 
 type
   TUnleashConfig = record
