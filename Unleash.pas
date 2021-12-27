@@ -246,6 +246,9 @@ begin
       if FRestConnection.Response.StatusCode = 304 then
         Exit;
 
+      if FRestConnection.Response.StatusCode = 401 then
+        raise ENotAuthorized.Create('You must sign in order to use Unleash');
+
       FErrorFetchingFeatures := False;
 
       FLastETag := FRestConnection.Response.Headers.Values['ETag'];

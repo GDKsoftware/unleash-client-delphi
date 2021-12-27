@@ -3,7 +3,8 @@ unit Unleash.Interfaces;
 interface
 
 uses
-  System.Generics.Collections;
+  System.Generics.Collections,
+  System.SysUtils;
 
 type
   TUnleashConfig = record
@@ -37,6 +38,9 @@ type
     function GetLatestFeaturesJson: string;
     function GetLastError: string;
   end;
+
+  EUnleashException = class(Exception);
+  ENotAuthorized = class(EUnleashException);
 
 implementation
 
