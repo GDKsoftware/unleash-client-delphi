@@ -238,6 +238,9 @@ begin
     FRestConnection.Request.AddParameter('UNLEASH-APPNAME', FConfig.appName, TRESTRequestParameterKind.pkHTTPHEADER);
     FRestConnection.Request.AddParameter('UNLEASH-INSTANCEID', FConfig.instanceId, TRESTRequestParameterKind.pkHTTPHEADER);
 
+    if FConfig.apiKey <> '' then
+      FRestConnection.Request.AddParameter('Authorization', FConfig.apiKey, TRESTRequestParameterKind.pkHTTPHEADER, [poDoNotEncode]);
+
     FRestConnection.Request.Timeout := FConfig.timeout;
 
     try
