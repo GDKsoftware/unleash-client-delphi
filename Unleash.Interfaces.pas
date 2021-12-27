@@ -40,9 +40,6 @@ type
     function GetLastError: string;
   end;
 
-  EUnleashException = class(Exception);
-  ENotAuthorized = class(EUnleashException);
-
 implementation
 
 { TUnleashConfig }

@@ -62,6 +62,11 @@ const
   c_StrategyGradualRolloutUserId = 'gradualRolloutUserId';
   c_StrategyRemoteAddress = 'remoteAddress';
 
+type
+  EUnleashException = class(Exception);
+  ENotAuthorized = class(EUnleashException);
+
+
 { TUnleash }
 
 constructor TUnleash.Create;
