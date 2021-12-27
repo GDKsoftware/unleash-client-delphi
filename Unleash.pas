@@ -64,7 +64,7 @@ const
 
 type
   EUnleashException = class(Exception);
-  ENotAuthorized = class(EUnleashException);
+  EUnleashNotAuthorized = class(EUnleashException);
 
 
 { TUnleash }
@@ -255,7 +255,7 @@ begin
         Exit;
 
       if FRestConnection.Response.StatusCode = 401 then
-        raise ENotAuthorized.Create('Unauthorized - You must provide an API key in order to use Unleash');
+        raise EUnleashNotAuthorized.Create('Unauthorized - You must provide an API key in order to use Unleash');
 
       FErrorFetchingFeatures := False;
 
